@@ -20,8 +20,13 @@ public class MainCharacterController : MonoBehaviour
     public AudioSource triggerSound;
     public AudioSource deathSound;
     public AudioSource reloadSound;
-    public GameObject bloodSplatterPrefab;
+    public GameObject zobmieBloodSplatterPrefab;
+    public GameObject playerBloodSplatterPrefab;
+    public GameObject canvas;
 
+
+    float canvasWidth;
+    float canvasHeight;
     float speed = 0.1f;
     float walkingSpeed = 0.1f;
     float runingSpeed = 0.15f;
@@ -64,13 +69,21 @@ public class MainCharacterController : MonoBehaviour
 
         ammoReserve.text = ammo.ToString();
         ammoClipAmmount.text = ammoClip.ToString();
+
+        canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
+        canvasHeight = canvas.GetComponent<RectTransform>().rect.height;
     }
 
     public void TakeHit(float amount)
     {
         health = (int)Mathf.Clamp(health - amount, 0, maxHealth);
         healthBar.value = health;
-        //Debug.Log("Health: " + health);
+
+        GameObject screenBloodSplatter = Instantiate(playerBloodSplatterPrefab);
+        screenBloodSplatter.transform.SetParent(canvas.transform);
+        screenBloodSplatter.transform.position = new(Random.Range(0, canvasWidth), Random.Range(0, canvasHeight), 0);
+
+        Destroy(screenBloodSplatter, 2.2f);
         if (health <= 0)
         {
             Vector3 spawnPos = new Vector3(this.transform.position.x, Terrain.activeTerrain.SampleHeight(this.transform.position), this.transform.position.z);
@@ -103,8 +116,8 @@ public class MainCharacterController : MonoBehaviour
 
             if (hitZombie.gameObject.tag == "Zombie")
             {
-                bloodSplatterPrefab.transform.LookAt(this.transform.position);
-                GameObject bloodSplatter = Instantiate(bloodSplatterPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+                zobmieBloodSplatterPrefab.transform.LookAt(this.transform.position);
+                GameObject bloodSplatter = Instantiate(zobmieBloodSplatterPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
                 Destroy(bloodSplatter, 0.5f);
                 hitZombie.GetComponent<zombieControler>().DeadZombie();
             }
