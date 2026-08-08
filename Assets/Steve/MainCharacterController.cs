@@ -20,6 +20,7 @@ public class MainCharacterController : MonoBehaviour
     public AudioSource triggerSound;
     public AudioSource deathSound;
     public AudioSource reloadSound;
+    public GameObject bloodSplatterPrefab;
 
     float speed = 0.1f;
     float walkingSpeed = 0.1f;
@@ -102,6 +103,9 @@ public class MainCharacterController : MonoBehaviour
 
             if (hitZombie.gameObject.tag == "Zombie")
             {
+                bloodSplatterPrefab.transform.LookAt(this.transform.position);
+                GameObject bloodSplatter = Instantiate(bloodSplatterPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+                Destroy(bloodSplatter, 0.5f);
                 hitZombie.GetComponent<zombieControler>().DeadZombie();
             }
         }
