@@ -66,7 +66,7 @@ public class zombieControler : MonoBehaviour
     {
         if (target != null && GameStats.gameOver == false)
         {
-            target.GetComponent<FPController>().TakeHit(damageAmount);
+            target.GetComponent<MainCharacterController>().TakeHit(damageAmount);
             PlaySplat();
         }
     }
