@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-public class FPController : MonoBehaviour
+public class MainCharacterController : MonoBehaviour
 {
     public GameObject cam;
     public Transform shotPoint;
