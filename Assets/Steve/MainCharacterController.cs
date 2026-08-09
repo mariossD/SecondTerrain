@@ -106,7 +106,7 @@ public class MainCharacterController : MonoBehaviour
         }
     }
 
-    void ProcessZombieHit()
+    async void ProcessZombieHit()
     {
         RaycastHit hitInfo;
         Vector3 rayOrigin = cam.transform.position + (cam.transform.forward * 0.5f);
@@ -116,10 +116,12 @@ public class MainCharacterController : MonoBehaviour
 
             if (hitZombie.gameObject.tag == "Zombie")
             {
+                hitZombie.GetComponent<zombieControler>().DeadZombie();
+
+                await Task.Delay(200);
                 zobmieBloodSplatterPrefab.transform.LookAt(this.transform.position);
                 GameObject bloodSplatter = Instantiate(zobmieBloodSplatterPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
                 Destroy(bloodSplatter, 0.5f);
-                hitZombie.GetComponent<zombieControler>().DeadZombie();
             }
         }
     }
