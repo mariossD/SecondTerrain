@@ -15,7 +15,12 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("GameLevel");
+        SceneManager.LoadScene("MainScene");
+    }
+
+    public void Controller()
+    {
+        SceneManager.LoadScene("ControllersScene");
     }
 
     // Start is called before the first frame update

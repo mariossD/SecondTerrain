@@ -40,7 +40,7 @@ public class zombieControler : MonoBehaviour
 
     bool IsTargetInChaseRange()
     {
-        if (DistanceFromPlayer() < 10)
+        if (DistanceFromPlayer() < 60)
         {
             return true;
         }
@@ -52,7 +52,7 @@ public class zombieControler : MonoBehaviour
 
     bool ForgetPlayer()
     {
-        if (DistanceFromPlayer() > 20)
+        if (DistanceFromPlayer() > 100)
         {
             return true;
         }
@@ -74,9 +74,18 @@ public class zombieControler : MonoBehaviour
 
     public void DeadZombie()
     {
+        if (currentState == STATE.DEAD) return;
+
         TurnOffTriggers();
         anim.SetBool("isZombieDead", true);
         currentState = STATE.DEAD;
+
+        if (agent != null)
+        {
+            agent.enabled = false;
+        }
+        
+        GameStats.RegisterZombieKill();
     }
 
     void PlaySplat()

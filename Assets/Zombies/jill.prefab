@@ -4585,12 +4585,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5286606572932149362}
   - component: {fileID: 2986969213742036221}
-  - component: {fileID: 6854349470692118411}
-  - component: {fileID: 472987802733167187}
   - component: {fileID: 2570989477623576779}
   - component: {fileID: 6433543483306592220}
   - component: {fileID: 4612753222411354558}
   - component: {fileID: 1208969771100432674}
+  - component: {fileID: 8171843934832691851}
+  - component: {fileID: 3414616531848927854}
   m_Layer: 6
   m_Name: jill
   m_TagString: Zombie
@@ -4608,7 +4608,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.432004, y: 0.46236134, z: 0.6713085}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0766, y: 1.0766, z: 1.0766}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3466057443852513042}
@@ -4636,46 +4636,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6854349470692118411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9153167617879130721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c54ba5c3421c8ba4c9bb30cbbf60e8ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  splash: {fileID: 4612753222411354558}
-  ragdoll: {fileID: 5012406710064213668, guid: 88ba455f1f6532b449a983671c7c77b4, type: 3}
-  damageAmount: 5
-  walkSpeed: 1
-  runSpeed: 2
---- !u!195 &472987802733167187
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9153167617879130721}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 0.8
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 3
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!136 &2570989477623576779
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4695,10 +4655,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.6
+  m_Radius: 0.5279492
+  m_Height: 1.7375132
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0.027949186, y: 1.0687561, z: 0}
 --- !u!114 &6433543483306592220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4732,7 +4692,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 474.3457
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -4820,3 +4780,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radarIcon: {fileID: 7156807925277748635, guid: a69a052310d4e4346879395f0ff92a9f, type: 3}
+--- !u!195 &8171843934832691851
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9153167617879130721}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &3414616531848927854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9153167617879130721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c54ba5c3421c8ba4c9bb30cbbf60e8ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  splash: {fileID: 4612753222411354558}
+  damageAmount: 10
+  walkSpeed: 1.5
+  runSpeed: 3

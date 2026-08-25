@@ -7,11 +7,13 @@ TagManager:
   - Zombie
   - Ragdoll
   - Home
+  - Ammo
+  - MedKit
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Terrain
   - Water
   - UI
   - Zombie

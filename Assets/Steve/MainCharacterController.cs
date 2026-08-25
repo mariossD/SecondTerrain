@@ -22,6 +22,7 @@ public class MainCharacterController : MonoBehaviour
     public AudioSource reloadSound;
     public GameObject zobmieBloodSplatterPrefab;
     public GameObject playerBloodSplatterPrefab;
+    public GameObject gameOverScreen;
     public GameObject canvas;
 
 
@@ -72,6 +73,8 @@ public class MainCharacterController : MonoBehaviour
 
         canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
         canvasHeight = canvas.GetComponent<RectTransform>().rect.height;
+
+        GameStats.ResetZombieKills();
     }
 
     public void TakeHit(float amount)
@@ -86,23 +89,21 @@ public class MainCharacterController : MonoBehaviour
         Destroy(screenBloodSplatter, 2.2f);
         if (health <= 0)
         {
-            Vector3 spawnPos = new Vector3(this.transform.position.x, Terrain.activeTerrain.SampleHeight(this.transform.position), this.transform.position.z);
+            Vector3 spawnPos = new Vector3(
+                this.transform.position.x,
+                this.transform.position.y - 0.5f,
+                this.transform.position.z);
             GameObject steve = Instantiate(stevePrefab, spawnPos, this.transform.rotation);
             steve.GetComponent<Animator>().SetTrigger("Death");
             GameStats.gameOver = true;
             Destroy(this.gameObject);
-        }
-    }
 
-    void OnTriggerEnter(Collider col)
-    {
-        if (col.gameObject.tag == "Home" == true)
-        {
-            Vector3 spawnPos = new Vector3(this.transform.position.x, Terrain.activeTerrain.SampleHeight(this.transform.position), this.transform.position.z);
-            GameObject steve = Instantiate(stevePrefab, spawnPos, this.transform.rotation);
-            steve.GetComponent<Animator>().SetTrigger("Dance");
-            GameStats.gameOver = true;
-            Destroy(this.gameObject);
+            GameObject gameOver = Instantiate(gameOverScreen);
+            gameOver.transform.SetParent(canvas.transform);
+            gameOver.transform.position = new Vector3(canvasWidth / 2, canvasHeight / 2, 0);
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 
@@ -110,15 +111,14 @@ public class MainCharacterController : MonoBehaviour
     {
         RaycastHit hitInfo;
         Vector3 rayOrigin = cam.transform.position + (cam.transform.forward * 0.5f);
-        if (Physics.Raycast(rayOrigin, cam.transform.forward, out hitInfo, 200))
+        if (Physics.Raycast(rayOrigin, cam.transform.forward, out hitInfo, 300))
         {
             GameObject hitZombie = hitInfo.collider.gameObject;
 
             if (hitZombie.gameObject.tag == "Zombie")
             {
-                hitZombie.GetComponent<zombieControler>().DeadZombie();
-
                 await Task.Delay(200);
+                hitZombie.GetComponent<zombieControler>().DeadZombie();
                 zobmieBloodSplatterPrefab.transform.LookAt(this.transform.position);
                 GameObject bloodSplatter = Instantiate(zobmieBloodSplatterPrefab, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
                 Destroy(bloodSplatter, 0.5f);
@@ -233,7 +233,7 @@ public class MainCharacterController : MonoBehaviour
         x = Input.GetAxis("Horizontal") * speed;
         z = Input.GetAxis("Vertical") * speed;
 
-        transform.position += cam.transform.forward * z + cam.transform.right * x; //new Vector3(x * speed, 0, z * speed);
+        transform.position += cam.transform.forward * z + cam.transform.right * x;
 
         UpdateCursorLock();
     }
@@ -267,7 +267,7 @@ public class MainCharacterController : MonoBehaviour
     {
         if (col.gameObject.tag == "Ammo" && ammo < maxAmmo)
         {
-            ammo = Mathf.Clamp(ammo + 10, 0, maxAmmo);
+            ammo = Mathf.Clamp(ammo + 20, 0, maxAmmo);
             ammoReserve.text = ammo.ToString();
             Debug.Log("Ammo: " + ammo);
             Destroy(col.gameObject);
